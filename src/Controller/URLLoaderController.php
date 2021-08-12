@@ -13,6 +13,7 @@ class URLLoaderController extends AbstractController
     #[Route('/{URL}', name: 'urlloader')]
     public function index(string $URL = null): Response
     {
+        dd($URL);
         $redirect = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $URL]);
         if($redirect){
             return $this->redirect($redirect->getLongURL());
