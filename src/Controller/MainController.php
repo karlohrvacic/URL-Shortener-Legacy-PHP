@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
-class URLLoaderController extends AbstractController
+class MainController extends AbstractController
 {
     #[Route('/{URL}', name: 'urlloader')]
     public function index(string $URL = null): Response
