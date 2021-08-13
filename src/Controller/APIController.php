@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/api')]
 class APIController extends AbstractController
 {
@@ -28,21 +29,23 @@ class APIController extends AbstractController
     #[Route('/url/shorten/{longURL}/{shortURL}', name: 'submitURL')]
     public function shortenURL(Request $request, string $longURL = null, string $shortURL = null): Response
     {
+        $longURL = $this->normalizeURL($longURL);
+
         if(!$longURL){
             throw new BadRequestHttpException('URL not specified!', null, 429);
         }
+
         $URLexists = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['longURL' => $longURL]);
         if($URLexists){
-            return $this->json($URLexists);
+            $url = 'https://'. $request->getHost().'/'. $URLexists->getShortURL();
+            return new Response(
+                '<html><body><a href='.$url.'>'.$url.'</a></body></html>'
+            );
         }
         else{
             if(!($shortURL && !$this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $shortURL]))){
                 $hashID = new Hashids('URL-Shortener', 5);
-                $shortURL = $hashID->encode(rand() * rand());
-            }
-            $URLprefix = 'https://';
-            if(!str_starts_with($longURL, $URLprefix)){
-                $longURL = $URLprefix.$longURL;
+                $shortURL = $hashID->encode(rand(), rand());
             }
 
             $newURL = new URL();
@@ -53,6 +56,23 @@ class APIController extends AbstractController
             $entityManager->persist($newURL);
             $entityManager->flush();
         }
-        return $this->json($newURL);
+
+        $url = 'https://'. $request->getHost().'/'. $newURL->getShortURL();
+        return new Response(
+            '<html><body><a href="$url">'.$url .'</a></body></html>'
+        );
+    }
+
+    private function normalizeURL(string $url) : string
+    {
+        $URLprefixSecure = 'https://';
+        $URLprefix = 'http://';
+
+        if(!str_starts_with($url, $URLprefixSecure) || !str_starts_with($url, $URLprefix)){
+            $url = $URLprefixSecure.$url;
+        }
+
+        return $url;
+
     }
 }
