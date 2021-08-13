@@ -11,14 +11,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainController extends AbstractController
 {
     #[Route('/{URL}', name: 'urlloader')]
-    public function index(string $URL = null): Response
+    public function urlRoute(string $URL = null): Response
     {
-        dd($URL);
         $redirect = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $URL]);
         if($redirect){
             return $this->redirect($redirect->getLongURL());
         } else{
             throw new BadRequestHttpException('URL not found!', null, 400);
         }
+    }
+
+    #[Route('/', name: 'urlloader')]
+    public function index(): Response
+    {
+        return $this->json('Welcome to URL API.');
     }
 }
