@@ -10,6 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
+    #[Route('/', name: 'urlloader')]
+    public function index(): Response
+    {
+        return $this->json('Welcome to URL API.');
+    }
+
     #[Route('/{URL}', name: 'urlloader')]
     public function urlRoute(string $URL = null): Response
     {
@@ -19,11 +25,5 @@ class MainController extends AbstractController
         } else{
             throw new BadRequestHttpException('URL not found!', null, 400);
         }
-    }
-
-    #[Route('/', name: 'urlloader')]
-    public function index(): Response
-    {
-        return $this->json('Welcome to URL API.');
     }
 }
