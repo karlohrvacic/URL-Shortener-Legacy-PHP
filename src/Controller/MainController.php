@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
 {
-    #[Route('/', name: 'urlloader')]
+    #[Route('/', name: 'urlloader', priority: 2)]
     public function index(): Response
     {
         return $this->json('Welcome to URL API.');
