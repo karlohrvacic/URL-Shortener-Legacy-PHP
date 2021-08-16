@@ -4,17 +4,17 @@ namespace App\Controller;
 
 use App\Entity\URL;
 use Hashids\Hashids;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\String\s;
 
 
-#[Route('/api')]
-class APIController extends AbstractController
+class APIController extends AbstractFOSRestController
 {
-    #[Route('/url/info/{shortURL}', name: 'getURL')]
+    #[Route('/info/{shortURL}', name: 'getURL')]
     public function fetchURL(Request $request, string $shortURL = null): Response
     {
         $redirect = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $shortURL]);
@@ -26,21 +26,32 @@ class APIController extends AbstractController
         }
     }
 
-    #[Route('/url/shorten/{longURL}/{shortURL}', name: 'submitURL')]
-    public function shortenURL(Request $request, string $longURL = null, string $shortURL = null): Response
+    /**
+     * @Route("/shorten", name="submitURL", methods={"POST"})
+     */
+    public function shortenURL(Request $request): Response
     {
-        $longURL = $this->normalizeURL($longURL);
+        $data = json_decode($request->getContent(),true);
 
-        if(!$longURL){
+        if(!isset($data['longURL'])){
             throw new BadRequestHttpException('URL not specified!', null, 429);
         }
+        
+        $longURL = $this->normalizeURL($data['longURL']);
 
-        $URLexists = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['longURL' => $longURL]);
-        if($URLexists){
-            $url = 'https://'. $request->getHost().'/'. $URLexists->getShortURL();
-            return new Response(
-                '<html><body><a href='.$url.'>'.$url.'</a></body></html>'
-            );
+        $shortURL = $data['shortURL'] ?? "";
+
+        if ($this->isForbidenShortURL($shortURL)){
+            throw new BadRequestHttpException($shortURL . ' is forbidden short URL!', null, 429);
+        }
+
+        $existingURL = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['longURL' => $longURL]);
+
+        if($existingURL){
+            $url = 'https://'. $request->getHost().'/'. $existingURL->getShortURL();
+            return $this->render('URL/URLexists.html.twig', [
+                'url' => $url,
+            ]);
         }
         else{
             if(!($shortURL && !$this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $shortURL]))){
@@ -58,9 +69,9 @@ class APIController extends AbstractController
         }
 
         $url = 'https://'. $request->getHost().'/'. $newURL->getShortURL();
-        return new Response(
-            '<html><body><a href="$url">'.$url .'</a></body></html>'
-        );
+        return $this->render('URL/NewURL.html.twig', [
+            'url' => $url,
+        ]);
     }
 
     private function normalizeURL(string $url) : string
@@ -74,5 +85,10 @@ class APIController extends AbstractController
 
         return $url;
 
+    }
+    private function isForbidenShortURL(string $shortURL) : bool
+    {
+        $forbidenWords = array('API', 'getURL', 'info', 'shorten', '_error', 'URL');
+        return in_array($shortURL, $forbidenWords);
     }
 }
