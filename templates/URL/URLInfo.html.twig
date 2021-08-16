@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}URL info{% endblock %}
+
+{% block body %}
+    <h1>URL info</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Long URL</th>
+            <th>Short URL</th>
+            <th>Create Date</th>
+            <th>Last Accessed</th>
+            <th>URL visits</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ url.id }}</td>
+                <td>{{ url.longURL }}</td>
+                <td>{{ url.shortURL }}</td>
+                <td>{{ url.createDate ? url.createDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ url.lastAccessed ? url.lastAccessed|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ url.hits }}</td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}

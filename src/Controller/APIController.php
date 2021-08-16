@@ -19,7 +19,9 @@ class APIController extends AbstractFOSRestController
     {
         $redirect = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $shortURL]);
         if($redirect){
-            return $this->json($redirect);
+            return $this->render('URL/URLInfo.html.twig', [
+                'url' => $redirect,
+            ]);
         }
         else{
             throw new BadRequestHttpException('URL not found!', null, 418);
