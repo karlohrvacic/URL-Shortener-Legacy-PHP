@@ -14,7 +14,7 @@ use function Symfony\Component\String\s;
 
 class APIController extends AbstractFOSRestController
 {
-    #[Route('/info/{shortURL}', name: 'getURL')]
+    #[Route('/api/info/{shortURL}', name: 'getURL', methods: 'GET')]
     public function fetchURL(Request $request, string $shortURL = null): Response
     {
         $redirect = $this->getDoctrine()->getRepository(URL::class)->findOneBy(['shortURL' => $shortURL]);
@@ -26,9 +26,8 @@ class APIController extends AbstractFOSRestController
         }
     }
 
-    /**
-     * @Route("/shorten", name="submitURL", methods={"POST"})
-     */
+
+    #[Route('/api/shorten', name: 'submitURL', methods: 'POST')]
     public function shortenURL(Request $request): Response
     {
         $data = json_decode($request->getContent(),true);
@@ -88,7 +87,7 @@ class APIController extends AbstractFOSRestController
     }
     private function isForbidenShortURL(string $shortURL) : bool
     {
-        $forbidenWords = array('API', 'getURL', 'info', 'shorten', '_error', 'URL');
+        $forbidenWords = array('api', 'getURL', 'info', 'shorten', '_error', 'URL');
         return in_array($shortURL, $forbidenWords);
     }
 }
