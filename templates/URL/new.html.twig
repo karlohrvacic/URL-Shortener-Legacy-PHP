@@ -1,0 +1,7 @@
+{% block body %}
+    <div class="row">
+        {{ form_start(form) }}
+        <button class="btn">{{ button_label|default('Submit') }}</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

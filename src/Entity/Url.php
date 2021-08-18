@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\URLRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource()
  * @ORM\Entity(repositoryClass=URLRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
-class URL
+class Url
 {
     public function __construct() {
         $this->setCreateDate(new \DateTime());
@@ -37,12 +39,12 @@ class URL
      * @ORM\Column(type="string", length=255)
      * @Assert\Url(message = "The url '{{ value }}' is not a valid url",)
      */
-    private $longURL;
+    private $longUrl;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $shortURL;
+    private $shortUrl;
 
     /**
      * @ORM\Column(type="datetime")
@@ -64,26 +66,26 @@ class URL
         return $this->id;
     }
 
-    public function getLongURL(): ?string
+    public function getLongUrl(): ?string
     {
-        return $this->longURL;
+        return $this->longUrl;
     }
 
-    public function setLongURL(string $longURL): self
+    public function setLongUrl(string $longUrl): self
     {
-        $this->longURL = $longURL;
+        $this->longUrl = $longUrl;
 
         return $this;
     }
 
-    public function getShortURL(): ?string
+    public function getShortUrl(): ?string
     {
-        return $this->shortURL;
+        return $this->shortUrl;
     }
 
-    public function setShortURL(string $shortURL): self
+    public function setShortUrl(string $shortUrl): self
     {
-        $this->shortURL = $shortURL;
+        $this->shortUrl = $shortUrl;
 
         return $this;
     }
@@ -122,5 +124,10 @@ class URL
         $this->hits = $hits;
 
         return $this;
+    }
+
+    public function __toString() : string
+    {
+        return $this->getId() . $this->getLongUrl() . $this->getShortUrl();
     }
 }

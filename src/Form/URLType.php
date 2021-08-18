@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
-use App\Entity\URL;
+use App\Entity\Url;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -12,15 +14,23 @@ class URLType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('longURL')
-            ->add('shortURL')
+            ->add('longURL', TextType::class, [
+                'required' => true,
+                'label' => "Long Url"
+            ])
+            ->add('shortURL', TextType::class, [
+                'required' => false,
+                'label' => "Short Url"
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => URL::class,
+            'data_class' => Url::class,
         ]);
     }
+
+
 }
