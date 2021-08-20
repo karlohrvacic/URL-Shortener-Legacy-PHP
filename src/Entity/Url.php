@@ -3,27 +3,48 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\URLRepository;
+use App\Repository\UrlRepository;
+use App\Controller\UrlPostAction;
+use App\Controller\UrlGetAction;
+use DateTime;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ApiResource()
- * @ORM\Entity(repositoryClass=URLRepository::class)
+ * @ApiResource(
+ *     itemOperations={
+ *      "get"={
+ *              "method"="GET",
+ *              "controller"=UrlGetAction::class,
+ *              },
+ *          "delete"
+ *     },
+ *     collectionOperations={
+ *          "post"={
+ *              "method"="POST",
+ *              "controller"=UrlPostAction::class,
+ *              "deserialize"=false
+ *              }
+ *     }
+ *
+)
+ * @ORM\Entity(repositoryClass=UrlRepository::class)
  * @ORM\HasLifecycleCallbacks
  */
 class Url
 {
     public function __construct() {
-        $this->setCreateDate(new \DateTime());
+        $this->setCreateDate(new DateTime());
         $this->setHits(0);
     }
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
-    public function updateAccess() {
-        $this->setLastAccessed(new \DateTime());
+    public function updateAccess(): static
+    {
+        $this->setLastAccessed(new DateTime());
         $hits = $this->getHits();
         $this->setHits($hits++);
         return $this;
@@ -33,33 +54,33 @@ class Url
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url(message = "The url '{{ value }}' is not a valid url",)
      */
-    private $longUrl;
+    private ?string $longUrl;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      */
-    private $shortUrl;
+    private ?string $shortUrl;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createDate;
+    private ?DateTimeInterface $createDate;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $lastAccessed;
+    private ?DateTimeInterface $lastAccessed;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hits;
+    private ?int $hits;
 
     public function getId(): ?int
     {
@@ -90,24 +111,24 @@ class Url
         return $this;
     }
 
-    public function getCreateDate(): ?\DateTimeInterface
+    public function getCreateDate(): ?DateTimeInterface
     {
         return $this->createDate;
     }
 
-    public function setCreateDate(\DateTimeInterface $createDate): self
+    public function setCreateDate(DateTimeInterface $createDate): self
     {
         $this->createDate = $createDate;
 
         return $this;
     }
 
-    public function getLastAccessed(): ?\DateTimeInterface
+    public function getLastAccessed(): ?DateTimeInterface
     {
         return $this->lastAccessed;
     }
 
-    public function setLastAccessed(\DateTimeInterface $lastAccessed): self
+    public function setLastAccessed(DateTimeInterface $lastAccessed): self
     {
         $this->lastAccessed = $lastAccessed;
 

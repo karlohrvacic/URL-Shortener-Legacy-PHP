@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Url[]    findAll()
  * @method Url[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class URLRepository extends ServiceEntityRepository
+class UrlRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -20,7 +20,7 @@ class URLRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Url[] Returns an array of Url objects
+    //  * @return UrlResource[] Returns an array of UrlResource objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class URLRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Url
+    public function findOneBySomeField($value): ?UrlResource
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

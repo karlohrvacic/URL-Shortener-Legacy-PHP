@@ -9,18 +9,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class URLType extends AbstractType
+class UrlType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('longURL', TextType::class, [
                 'required' => true,
-                'label' => "Long Url"
+                'label' => "Long UrlResource"
             ])
             ->add('shortURL', TextType::class, [
                 'required' => false,
-                'label' => "Short Url"
+                'label' => "Short UrlResource"
             ])
         ;
     }

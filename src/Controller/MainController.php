@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Url;
-use App\Form\URLType;
+use App\Form\UrlType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +16,7 @@ class MainController extends AbstractController
     public function index(Request $request): Response
     {
         $url = new Url();
-        $form = $this->createForm(URLType::class, $url);
+        $form = $this->createForm(UrlType::class, $url);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -24,8 +24,8 @@ class MainController extends AbstractController
                 '/api/shorten',
                 'POST',
                 [
-                    'longURL' => $url->getLongUrl(),
-                    'shortURL' => $url->getShortUrl()
+                    'longUrl' => $url->getLongUrl(),
+                    'shortUrl' => $url->getShortUrl()
                 ]
             );
             $request->headers->set('content-type', 'application/json');
@@ -34,7 +34,7 @@ class MainController extends AbstractController
 
         }
 
-        return $this->render('URL/new.html.twig', [
+        return $this->render('Url/new.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -42,11 +42,11 @@ class MainController extends AbstractController
     #[Route('/{url}', name: 'urlloader', priority: 1)]
     public function urlRoute(string $url = null): Response
     {
-        $redirect = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortURL' => $url]);
+        $redirect = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $url]);
         if($redirect){
             return $this->redirect($redirect->getLongUrl());
         } else{
-            throw new BadRequestHttpException('Url not found!', null, 400);
+            throw new BadRequestHttpException('UrlResource not found!', null, 400);
         }
     }
 }
