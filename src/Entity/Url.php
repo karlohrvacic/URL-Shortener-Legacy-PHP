@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     itemOperations={
  *      "get"={
  *              "method"="GET",
- *              "controller"=UrlGetAction::class,
+ *              "controller"=UrlGetAction::class
  *              },
  *          "delete"
  *     },
@@ -28,7 +28,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              }
  *     }
  *
-)
+ *   )
  * @ORM\Entity(repositoryClass=UrlRepository::class)
  * @ORM\HasLifecycleCallbacks
  */

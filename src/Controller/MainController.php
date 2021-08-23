@@ -19,20 +19,22 @@ class MainController extends AbstractController
         $form = $this->createForm(UrlType::class, $url);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $request = Request::create(
-                '/api/shorten',
-                'POST',
-                [
-                    'longUrl' => $url->getLongUrl(),
-                    'shortUrl' => $url->getShortUrl()
-                ]
-            );
-            $request->headers->set('content-type', 'application/json');
-            $request->overrideGlobals();
-            $request->initialize();
-
-        }
+//        if ($form->isSubmitted() && $form->isValid()) {
+//
+//            $request = Request::create(
+//                '/api/shorten',
+//                'POST',
+//                [
+//                    'longUrl' => $url->getLongUrl(),
+//                    'shortUrl' => $url->getShortUrl()
+//                ]
+//            );
+//            dd($request);
+//            $request->headers->set('content-type', 'application/json');
+//            $request->overrideGlobals();
+//            $request->initialize();
+//
+//        }
 
         return $this->render('Url/new.html.twig', [
             'form' => $form->createView()

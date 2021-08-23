@@ -1,7 +1,10 @@
 {% block body %}
     <div class="row">
         {{ form_start(form) }}
-        <button class="btn">{{ button_label|default('Submit') }}</button>
         {{ form_end(form) }}
     </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/sendRequest.js') }}"></script>
 {% endblock %}
