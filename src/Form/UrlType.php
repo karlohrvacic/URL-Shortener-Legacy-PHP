@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Url;
-use PhpParser\Node\Scalar\String_;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,7 +14,7 @@ class UrlType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('longURL', TextType::class, [
+            ->add('longURL', \Symfony\Component\Form\Extension\Core\Type\UrlType::class, [
                 'required' => true,
                 'label' => "Long Url",
                 'attr' => [
@@ -30,7 +29,8 @@ class UrlType extends AbstractType
                 'label' => "Short Url",
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'start'
+                    'placeholder' => 'start',
+
                 ]
             ])
             ->add('submit', SubmitType::class, [
