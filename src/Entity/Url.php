@@ -143,12 +143,23 @@ class Url
     public function setHits(int $hits): self
     {
         $this->hits = $hits;
-
         return $this;
     }
 
     public function __toString() : string
     {
         return $this->getId() . $this->getLongUrl() . $this->getShortUrl();
+    }
+
+    public function addHit(): self
+    {
+        $this->hits++;
+        return $this;
+    }
+
+    public function lastAccessedNow() : self
+    {
+        $this->lastAccessed = new DateTime('now');
+        return $this;
     }
 }

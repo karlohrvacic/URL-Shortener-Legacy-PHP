@@ -1,10 +1,16 @@
-{% block body %}
-    <div class="row">
-        {{ form_start(form) }}
-        {{ form_end(form) }}
+{% extends 'base.html.twig' %}
+
+    {% block body %}
+    <div class="d-flex justify-content-center ">
+        <div class="row">
+            {{ form_start(form) }}
+            {{ form_end(form) }}
+        </div>
     </div>
-{% endblock %}
+
+    {% endblock %}
+
 {% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
     <script src="{{ asset('js/sendRequest.js') }}"></script>
 {% endblock %}

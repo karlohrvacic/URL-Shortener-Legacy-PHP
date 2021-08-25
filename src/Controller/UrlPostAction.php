@@ -5,18 +5,20 @@ namespace App\Controller;
 use App\Entity\Url;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use Hashids\Hashids;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class UrlPostAction extends AbstractFOSRestController
 {
-    public function __invoke(Request $request): JsonResponse
+    public function __invoke(Request $request, LoggerInterface $logger): JsonResponse
     {
         $data = json_decode($request->getContent(),true);
 
         if(!isset($data['longUrl'])){
-            throw new BadRequestHttpException('UrlResource not specified!', null, 429);
+            $logger->error("Long url not specified", ['data' => $data, 'request' => $request]);
+            throw new BadRequestHttpException('Long url not specified!', null, 429);
         }
 
         $longUrl = $this->normalizeUrl($data['longUrl']);

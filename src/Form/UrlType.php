@@ -17,13 +17,27 @@ class UrlType extends AbstractType
         $builder
             ->add('longURL', TextType::class, [
                 'required' => true,
-                'label' => "Long UrlResource"
+                'label' => "Long Url",
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'https://startpage.com',
+                    'value' => 'https://',
+                ]
+
             ])
             ->add('shortURL', TextType::class, [
                 'required' => false,
-                'label' => "Short UrlResource"
+                'label' => "Short Url",
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'start'
+                ]
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success form-control mt-4'
+                ]
+            ])
         ;
     }
 
@@ -31,6 +45,7 @@ class UrlType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Url::class,
+            'attr' => ['id' => 'url_form'],
         ]);
     }
 
