@@ -18,6 +18,7 @@ $("#url_form").submit( function(form){
             data : JSON.stringify(data),
             success: function(response, textStatus, jqXHR) {
                 console.log(response);
+                $('#information').html(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
