@@ -21,7 +21,7 @@ class UrlType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'https://startpage.com',
-                    'value' => 'https://',
+                    'value' => 'https://startpage.com',
                 ]
 
             ])

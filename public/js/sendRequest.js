@@ -1,6 +1,5 @@
-document.getElementById("url_form").addEventListener("submit", function(form){
+$("#url_form").submit( function(form){
         const Url = window.location.href + "api/urls.json";
-        console.log(Url);
 
         let data = {
             longUrl: document.getElementById("url_longURL").value,
@@ -8,15 +7,15 @@ document.getElementById("url_form").addEventListener("submit", function(form){
         };
 
         let headers = {
-            "Content-type":"application/json; charset=UTF-8",
+            "Content-type":"application/json; charset=utf-8",
             "Accept": "application/json"
         };
+
         $.ajax({
             url : Url,
-            type: "POST",
+            method: "POST",
             headers: headers,
-            data : data,
-            async : false,
+            data : JSON.stringify(data),
             success: function(response, textStatus, jqXHR) {
                 console.log(response);
             },
@@ -26,5 +25,6 @@ document.getElementById("url_form").addEventListener("submit", function(form){
                 console.log(errorThrown);
             }
         });
+
         form.preventDefault();
 });

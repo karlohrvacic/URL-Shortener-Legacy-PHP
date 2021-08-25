@@ -15,7 +15,6 @@ class UrlPostAction extends AbstractFOSRestController
     public function __invoke(Request $request, LoggerInterface $logger): JsonResponse
     {
         $data = json_decode($request->getContent(),true);
-
         if(!isset($data['longUrl'])){
             $logger->error("Long url not specified", ['data' => $data, 'request' => $request]);
             throw new BadRequestHttpException('Long url not specified!', null, 429);
