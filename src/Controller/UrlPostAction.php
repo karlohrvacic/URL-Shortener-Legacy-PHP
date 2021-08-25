@@ -33,6 +33,7 @@ class UrlPostAction extends AbstractFOSRestController
             $url = 'https://'. $request->getHost().'/'. $existingUrl->getShortUrl();
             return $this->json($url);
         }
+
         else{
             if(!($shortUrl && !$this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $shortUrl]))){
                 $hashID = new Hashids('UrlResource-Shortener', 5);
@@ -57,7 +58,7 @@ class UrlPostAction extends AbstractFOSRestController
         $UrlPrefixSecure = 'https://';
         $UrlPrefix = 'http://';
 
-        if(!str_starts_with($url, $UrlPrefixSecure) || !str_starts_with($url, $UrlPrefix)){
+        if(!str_starts_with($url, $UrlPrefixSecure) && !str_starts_with($url, $UrlPrefix)){
             $url = $UrlPrefixSecure.$url;
         }
 
