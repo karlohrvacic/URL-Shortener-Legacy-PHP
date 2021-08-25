@@ -1,5 +1,4 @@
-window.onload = function () {
-    document.getElementById("url_form").onsubmit = function onSubmit(form) {
+document.getElementById("url_form").addEventListener("submit", function(form){
         const Url = window.location.href + "api/urls.json";
         console.log(Url);
 
@@ -28,5 +27,4 @@ window.onload = function () {
             }
         });
         form.preventDefault();
-    }
-}
+});
