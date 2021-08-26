@@ -37,13 +37,13 @@ class Url
     public function __construct() {
         $this->setCreateDate(new DateTime());
         $this->setLastAccessed(new DateTime());
-        $this->setHits(0);
+        $this->setVisits(0);
     }
 
     public function updateAccess(): static
     {
         $this->lastAccessed = new DateTime('now');
-        $this->hits++;
+        $this->visits++;
         return $this;
     }
     /**
@@ -80,7 +80,7 @@ class Url
     /**
      * @ORM\Column(type="integer")
      */
-    private ?int $hits;
+    private ?int $visits;
 
     public function getId(): ?int
     {
@@ -135,14 +135,14 @@ class Url
         return $this;
     }
 
-    public function getHits(): ?int
+    public function getVisits(): ?int
     {
-        return $this->hits;
+        return $this->visits;
     }
 
-    public function setHits(int $hits): self
+    public function setVisits(int $visits): self
     {
-        $this->hits = $hits;
+        $this->visits = $visits;
         return $this;
     }
 

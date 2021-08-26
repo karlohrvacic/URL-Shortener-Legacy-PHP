@@ -21,7 +21,7 @@ class UrlGetAction extends AbstractFOSRestController
             return $this->json($redirect);
         }
         else{
-            throw new BadRequestHttpException('UrlResource not found!', null, 418);
+            throw new BadRequestHttpException('Url not found!', null, 418);
         }
     }
 }
