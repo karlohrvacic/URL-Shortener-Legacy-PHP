@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Regex;
 
 class UrlType extends AbstractType
 {
@@ -31,6 +32,9 @@ class UrlType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'start',
 
+                ],
+                'constraints' => [
+                    new Regex('/^[A-Za-z0-9-]+$/')
                 ]
             ])
             ->add('submit', SubmitType::class, [

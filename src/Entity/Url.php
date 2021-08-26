@@ -36,17 +36,14 @@ class Url
 {
     public function __construct() {
         $this->setCreateDate(new DateTime());
+        $this->setLastAccessed(new DateTime());
         $this->setHits(0);
     }
-    /**
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     */
+
     public function updateAccess(): static
     {
-        $this->setLastAccessed(new DateTime());
-        $hits = $this->getHits();
-        $this->setHits($hits++);
+        $this->lastAccessed = new DateTime('now');
+        $this->hits++;
         return $this;
     }
     /**
@@ -64,6 +61,9 @@ class Url
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\Regex(
+     *     pattern="/^[A-Za-z0-9-]+$/"
+     * )
      */
     private ?string $shortUrl;
 
@@ -151,15 +151,4 @@ class Url
         return $this->getId() . $this->getLongUrl() . $this->getShortUrl();
     }
 
-    public function addHit(): self
-    {
-        $this->hits++;
-        return $this;
-    }
-
-    public function lastAccessedNow() : self
-    {
-        $this->lastAccessed = new DateTime('now');
-        return $this;
-    }
 }

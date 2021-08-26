@@ -4,7 +4,7 @@ $.validator.addMethod('shortUrlRegex', function (value) {
 
 $("#url_form").validate(
     {
-        submitHandler: function(form) {
+        submitHandler: function() {
             const Url = window.location.href + "api/urls.json";
             let data = {
                 longUrl: document.getElementById("url_longURL").value,
@@ -21,7 +21,7 @@ $("#url_form").validate(
                 method: "POST",
                 headers: headers,
                 data : JSON.stringify(data),
-                success: function(response, textStatus, jqXHR) {
+                success: function(response) {
                     console.log(response);
                     $('#link').html(response).href(response);
                 },

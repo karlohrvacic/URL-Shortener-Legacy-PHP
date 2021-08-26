@@ -34,6 +34,7 @@ class MainController extends AbstractController
         $redirect = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $url]);
         if($redirect){
 
+            // This should be listener, subscriber or separate task, so we can send redirect immediately
             $this->updateUrl($redirect);
 
             return $this->redirect($redirect->getLongUrl());
@@ -45,8 +46,9 @@ class MainController extends AbstractController
     public function updateUrl(Url $url)
     {
         $em = $this->getDoctrine()->getManager();
-        $url->addHit();
-        $url->lastAccessedNow();
+        $url->updateAccess();
+//        $url->addHit();
+//        $url->lastAccessedNow();
         $em->persist($url);
         $em->flush();
     }
