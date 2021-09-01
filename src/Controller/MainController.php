@@ -47,8 +47,6 @@ class MainController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $url->updateAccess();
-//        $url->addHit();
-//        $url->lastAccessedNow();
         $em->persist($url);
         $em->flush();
     }

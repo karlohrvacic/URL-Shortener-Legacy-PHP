@@ -40,7 +40,7 @@ $("#url_form").validate(
             },
             'url[shortURL]': {
                 required: false,
-                shortUrlRegex: true
+                shortUrlRegex: true,
             }
         },
     }

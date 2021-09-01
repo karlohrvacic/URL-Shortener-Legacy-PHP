@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\UrlRepository;
 use App\Controller\UrlPostAction;
@@ -15,8 +16,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     itemOperations={
  *      "get"={
- *              "method"="GET",
- *              "controller"=UrlGetAction::class
+ *              "method"= "GET",
+ *              "controller"= UrlGetAction::class,
  *              },
  *          "delete"
  *     },
@@ -50,6 +51,7 @@ class Url
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @ApiProperty(identifier=false)
      */
     private ?int $id;
 
@@ -61,6 +63,7 @@ class Url
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
+     * @ApiProperty(identifier=true)
      * @Assert\Regex(
      *     pattern="/^[A-Za-z0-9-]+$/"
      * )
