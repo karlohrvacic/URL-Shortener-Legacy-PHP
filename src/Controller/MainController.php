@@ -32,13 +32,15 @@ class MainController extends AbstractController
          * @var Url $redirect
          */
         $redirect = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $url]);
-        if($redirect){
-
+        if($redirect)
+        {
             // This should be listener, subscriber or separate task, so we can send redirect immediately
             $this->updateUrl($redirect);
 
             return $this->redirect($redirect->getLongUrl());
-        } else{
+        }
+        else
+        {
             throw new BadRequestHttpException('Url not found!', null, 400);
         }
     }

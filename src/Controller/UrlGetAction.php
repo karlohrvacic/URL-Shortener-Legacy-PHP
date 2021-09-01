@@ -14,14 +14,14 @@ class UrlGetAction extends AbstractFOSRestController
 {
     public function __invoke(Request $request, $shortUrl): JsonResponse
     {
-
-
         $redirect = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $shortUrl]);
 
-        if($redirect){
+        if($redirect)
+        {
             return $this->json($redirect);
         }
-        else{
+        else
+        {
             throw new BadRequestHttpException('Url not found!', null, 418);
         }
     }
