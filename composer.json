@@ -1,4 +1,6 @@
 {
+    "name": "karlohrvacic/url-shortener",
+    "description": "Service for shortening Urls",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

@@ -1,25 +1,24 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}
     Url Shortener Service
 {% endblock %}
 
-
-    {% block body %}
-
-        <div class="container-fluid d-flex justify-content-center ">
-            <div class="row">
-                    <div id="information" class="alert alert-primary alert-dismissible mt-4 text-center" role="alert">
-                        <a href="#" id="link">Enter Url Info</a>
-                    </div>
-                {{ form_start(form) }}
-                {{ form_end(form) }}
+{% block body %}
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="row">
+            <div id="information" class="alert alert-primary alert-dismissible mt-4 text-center" role="alert">
+                <a href="#" id="link">Enter Url Info</a>
             </div>
+            {{ form_start(form) }}
+            {{ form_end(form) }}
         </div>
-        {% block javascripts %}
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous"></script>
-            <script src="{{ asset('js/sendRequest.js') }}"></script>
-        {% endblock %}
+    </div>
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js" integrity="sha512-37T7leoNS06R80c8Ulq7cdCDU5MNQBwlYoy1TX/WUsLFC2eYNqtKlV0QjH7r8JpG/S0GUMZwebnVFLPd6SU5yg==" crossorigin="anonymous"></script>
+        <script src="{{ asset('js/sendRequest.js') }}"></script>
     {% endblock %}
+{% endblock %}
 
 

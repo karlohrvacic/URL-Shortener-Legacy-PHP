@@ -53,13 +53,13 @@ class Url
      * @ORM\Column(type="integer")
      * @ApiProperty(identifier=false)
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Url(message = "The url '{{ value }}' is not a valid url",)
      */
-    private ?string $longUrl;
+    private ?string $longUrl = null;
 
     /**
      * @ORM\Column(type="string", length=255, unique=true)
@@ -68,7 +68,7 @@ class Url
      *     pattern="/^[A-Za-z0-9-]+$/"
      * )
      */
-    private ?string $shortUrl;
+    private ?string $shortUrl = null;
 
     /**
      * @ORM\Column(type="datetime")
