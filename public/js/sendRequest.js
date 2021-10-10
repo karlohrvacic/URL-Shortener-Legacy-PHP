@@ -25,6 +25,7 @@ $("#url_form").validate(
                     console.log(response);
                     $('#main-message').html('New Generated URL is:')
                     $('#link').val(response);
+                    $('#answer').removeClass('invisible')
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
