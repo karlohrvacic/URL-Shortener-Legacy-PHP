@@ -15,7 +15,6 @@ class UrlPostAction extends AbstractFOSRestController
     public function __invoke(Request $request, LoggerInterface $logger): JsonResponse
     {
         $data = json_decode($request->getContent(),true);
-
         if(!isset($data['longUrl']))
         {
             $logger->error("Long url not specified", ['data' => $data, 'request' => $request]);
@@ -23,8 +22,9 @@ class UrlPostAction extends AbstractFOSRestController
         }
 
         $longUrl = $this->normalizeUrl($data['longUrl']);
+        $shortUrl = $data['shortUrl'];
 
-         $existingUrl = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['longUrl' => $longUrl]);
+        $existingUrl = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['longUrl' => $longUrl]);
 
         if($existingUrl)
         {
@@ -32,7 +32,10 @@ class UrlPostAction extends AbstractFOSRestController
             return $this->json($url);
         }
 
-        $shortUrl = $data['shortUrl'] ?? "";
+        if(!$shortUrl)
+        {
+            $shortUrl = $this->generateShortUrl();
+        }
 
         if (!preg_match('/^[A-Za-z0-9-]+$/', $shortUrl))
         {
@@ -42,16 +45,8 @@ class UrlPostAction extends AbstractFOSRestController
         {
             throw new BadRequestHttpException($shortUrl . ' is forbidden short url!', null, 444);
         }
-
-
         else
         {
-            if(!($shortUrl && !$this->getDoctrine()->getRepository(Url::class)->findOneBy(['shortUrl' => $shortUrl])))
-            {
-                $hashID = new Hashids('UrlResource-Shortener', 5);
-                $shortUrl = $hashID->encode(rand(), rand());
-            }
-
             $newUrl = new Url();
             $newUrl->setLongUrl($longUrl);
             $newUrl->setShortUrl($shortUrl);
@@ -76,9 +71,16 @@ class UrlPostAction extends AbstractFOSRestController
         return $url;
     }
 
+    private function generateShortUrl() : string
+    {
+        $hashID = new Hashids('UrlResource-Shortener', 5);
+        return $hashID->encode(rand());
+    }
+
     private function isForbiddenShortUrl(string $shortUrl) : bool
     {
         $forbiddenWords = array('api', 'getUrl', 'info', 'shorten', '_error', 'UrlResource');
         return in_array($shortUrl, $forbiddenWords);
     }
+
 }

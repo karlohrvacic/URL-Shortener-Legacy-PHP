@@ -16,6 +16,10 @@
     z-index: 25;
 }
 
+.error {
+    color: red;
+}
+
 html {
     height:100%;
 }

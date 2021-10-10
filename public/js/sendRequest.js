@@ -1,5 +1,6 @@
 $.validator.addMethod('shortUrlRegex', function (value) {
-    return /^[A-Za-z0-9-]+$/.test(value);
+    console.log(value)
+    return (value ?  /^[A-Za-z0-9-]+$/.test(value) : true);
 }, 'Short Url can have letters, numbers and -');
 
 $("#url_form").validate(
@@ -41,8 +42,8 @@ $("#url_form").validate(
                 url: true
             },
             'url[shortURL]': {
+                shortUrlRegex: true,
                 required: false,
-                shortUrlRegex: false
             }
         },
     }
