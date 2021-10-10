@@ -19,7 +19,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "method"= "GET",
  *              "controller"= UrlGetAction::class,
  *              },
- *          "delete"
  *     },
  *     collectionOperations={
  *          "post"={

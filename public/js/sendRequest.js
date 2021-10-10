@@ -23,7 +23,8 @@ $("#url_form").validate(
                 data : JSON.stringify(data),
                 success: function(response) {
                     console.log(response);
-                    $('#link').html(response).href(response);
+                    $('#main-message').html('New Generated URL is:')
+                    $('#link').val(response);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -45,3 +46,9 @@ $("#url_form").validate(
         },
     }
 );
+
+function copyToClipboard() {
+    let copyText = document.querySelector("#link");
+    copyText.select();
+    document.execCommand("copy");
+}
