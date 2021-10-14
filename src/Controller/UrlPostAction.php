@@ -73,7 +73,9 @@ class UrlPostAction extends AbstractFOSRestController
 
     private function generateShortUrl() : string
     {
-        $hashID = new Hashids('UrlResource-Shortener', 5);
+        $salt = $_ENV['SALT'];
+        $minHashLength = $_ENV['MIN_HASH_LENGTH'];
+        $hashID = new Hashids($salt, $minHashLength);
         return $hashID->encode(rand());
     }
 
