@@ -8,7 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
 class MainController extends AbstractController
@@ -41,7 +40,7 @@ class MainController extends AbstractController
         }
         else
         {
-            throw new BadRequestHttpException('Url not found!', null, 400);
+            return $this->render('Url/bundles/TwigBundle/Exception/error404.html.twig');
         }
     }
 

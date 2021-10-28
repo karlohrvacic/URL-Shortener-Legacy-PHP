@@ -1,0 +1,23 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Page not found</h1>
+
+    <p>
+        The requested page couldn't be located. Checkout for any URL
+        misspelling or <a href="{{ path('main') }}">return to the homepage</a>.
+    </p>
+    <h4>Redirecting to homepage in <p id="number"></p></h4>
+    <script>
+        let duration = 5
+        let timer = setInterval(() => {
+            if(duration <= 0){
+                //window.location.href = "/";
+                clearInterval(timer)
+            }
+            document.getElementById("number").innerHTML = duration;
+            duration--;
+        }, 1000);
+    </script>
+{% endblock %}

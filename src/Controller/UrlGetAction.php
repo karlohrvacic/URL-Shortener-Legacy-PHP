@@ -22,7 +22,7 @@ class UrlGetAction extends AbstractFOSRestController
         }
         else
         {
-            throw new BadRequestHttpException('Url not found!', null, 418);
+            throw new BadRequestHttpException('Url not found!', null, 404);
         }
     }
 }
