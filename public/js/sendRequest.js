@@ -52,8 +52,8 @@ document.getElementById('url_form').addEventListener('submit', (event) => {
 
 });
 
-document.getElementById('url_longURL').addEventListener("blue", isFormValid);
-document.getElementById('url_shortURL').addEventListener("blur", isFormValid);
+document.getElementById('url_longURL').addEventListener("keyup", isFormValid);
+document.getElementById('url_shortURL').addEventListener("keyup", isFormValid);
 
 function copyToClipboard() {
     let copyText = document.querySelector('#link');
