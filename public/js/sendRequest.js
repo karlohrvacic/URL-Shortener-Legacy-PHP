@@ -1,56 +1,62 @@
-$.validator.addMethod('shortUrlRegex', function (value) {
-    return (value ?  /^[A-Za-z0-9-]+$/.test(value) : true);
-}, 'Short Url can have letters, numbers and -');
+let regExUrl = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)';
+let regExShortUrl = '/^[A-Za-z0-9-]+$/';
 
-$("#url_form").validate(
-    {
-        submitHandler: function() {
-            const Url = window.location.href + "api/urls.json";
-            let data = {
-                longUrl: document.getElementById("url_longURL").value,
-                shortUrl: document.getElementById("url_shortURL").value,
-            };
-
-            let headers = {
-                "Content-type":"application/json; charset=utf-8",
-                "Accept": "application/json"
-            };
-
-            $.ajax({
-                url : Url,
-                method: "POST",
-                headers: headers,
-                data : JSON.stringify(data),
-                success: function(response) {
-                    console.log(response);
-                    $('#main-message').html('New Generated URL is:')
-                    $('#link').val(response);
-                    $('#answer').removeClass('invisible')
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(jqXHR);
-                    console.log(textStatus);
-                    console.log(errorThrown);
-                }
-            });
-            return false;
-        },
-        rules: {
-            'url[longURL]': {
-                required: true,
-                url: true
-            },
-            'url[shortURL]': {
-                shortUrlRegex: true,
-                required: false,
-            }
-        },
+function isFormValid(){
+    let fullUrl = document.getElementById('url_longURL');
+    let shortUrl = document.getElementById('url_shortURL');
+    let isValid = true;
+    if (!new RegExp(regExUrl, 'g').test(fullUrl.value)){
+        fullUrl.classList.add('error');
+        isValid = false;
     }
-);
+    else{
+        fullUrl.classList.remove('error');
+    }
+    if (!new RegExp(regExShortUrl, 'g').test(shortUrl.value) && shortUrl.value.length !== 0){
+        shortUrl.classList.add('error');
+        isValid = false;
+    }
+    else{
+        shortUrl.classList.remove('error');
+    }
+    return isValid;
+}
+
+document.getElementById('url_form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!isFormValid()){
+        return;
+    }
+    const data = {
+        longUrl: document.getElementById('url_longURL').value,
+        shortUrl: document.getElementById('url_shortURL').value
+    };
+
+    fetch('/api/urls.json', {
+        method: 'POST',
+        headers: {
+            'Content-type':'application/json; charset=utf-8',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(data),
+    })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('main-message').innerHTML = 'New Generated URL is:';
+            document.getElementById('link').value = data;
+            document.getElementById('answer').classList.remove('invisible');
+        })
+        .catch((error) => {
+            console.error('Error has occurred:', error);
+        });
+
+});
+
+document.getElementById('url_longURL').addEventListener("keyup", isFormValid);
+document.getElementById('url_shortURL').addEventListener("keyup", isFormValid);
 
 function copyToClipboard() {
-    let copyText = document.querySelector("#link");
+    let copyText = document.querySelector('#link');
     copyText.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
 }

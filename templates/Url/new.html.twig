@@ -25,9 +25,7 @@
         </div>
     </div>
     {% block javascripts %}
-        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
-            <script src="{{ asset('js/sendRequest.js') }}"></script>
+            <script src="{{ asset('js/sendRequest.js') }}" defer></script>
     {% endblock %}
 {% endblock %}
 
