@@ -24,9 +24,7 @@ function isFormValid(){
 
 document.getElementById('url_form').addEventListener('submit', (event) => {
     event.preventDefault();
-    if (!isFormValid()){
-        return;
-    }
+    if (!isFormValid()) return;
     const data = {
         longUrl: document.getElementById('url_longURL').value,
         shortUrl: document.getElementById('url_shortURL').value

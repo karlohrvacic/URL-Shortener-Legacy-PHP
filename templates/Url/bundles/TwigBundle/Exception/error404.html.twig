@@ -1,27 +1,25 @@
-{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
 {% extends 'base.html.twig' %}
 {% block title %}
     Page not found
 {% endblock %}
 
 {% block body %}
-    <h1>Page not found</h1>
+<div class="container-fluid main">
+    <div class="bger"></div>
+    <div class="bger bg2"></div>
+    <div class="bger bg3"></div>
+    <div class="row col-12 col-sm-10 col-md-6 col-lg-6 infobox p-lg-3 p-2">
+        <h1>Page not found, so here is a random useless fact</h1>
 
-    <p>
-        The requested page couldn't be located. Checkout for any URL
-        misspelling or <a href="{{ path('main') }}">return to the homepage</a>.
-    </p>
-    <h4 id="number"></h4>
-    <script>
-        let duration = 3
-        let timer = setInterval(() => {
-            if(duration <= 0){
-                window.location.href = "/";
-                clearInterval(timer)
-            }
-            document.getElementById("number").innerHTML = "Redirecting to homepage in " + duration;
-            duration--;
-        }, 1000);
-    </script>
+        <p>
+            The requested page couldn't be located. Checkout for any URL
+            misspelling or <a href="{{ path('main') }}">return to the homepage</a>.
+        </p>
+        <h4 id="number"></h4>
+        <h3 id="random-fact"></h3>
+        <script src="{{ asset('js/errorPages.js') }}" defer></script>
+    </div>
+</div>
+
 {% endblock %}
 

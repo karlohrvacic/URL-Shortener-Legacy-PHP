@@ -41,6 +41,18 @@ body {
     z-index:-1;
 }
 
+.bger {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, red 50%, orange 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+}
+
 .bg2 {
     animation-direction:alternate-reverse;
     animation-duration:4s;
@@ -67,6 +79,10 @@ h1 {
     font-family:monospace;
 }
 
+iframe#random-article{
+    width: 100%;
+}
+
 @keyframes slide {
     0% {
         transform:translateX(-25%);
@@ -75,3 +91,4 @@ h1 {
         transform:translateX(25%);
     }
 }
+
