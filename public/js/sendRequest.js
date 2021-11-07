@@ -1,5 +1,5 @@
-let regExUrl = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)';
-let regExShortUrl = '^[A-Za-z0-9-_]+$';
+var regExUrl = 'https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)';
+var regExShortUrl = '^[A-Za-z0-9-_]+$';
 
 function isFormValid(){
     let fullUrl = document.getElementById('url_longURL');
