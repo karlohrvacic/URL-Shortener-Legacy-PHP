@@ -29,7 +29,7 @@ class UrlPostAction extends AbstractFOSRestController
         if($existingUrl)
         {
             $url = 'https://'. $request->getHost().'/'. $existingUrl->getShortUrl();
-            return $this->json($url);
+            return $this->json($existingUrl);
         }
 
         if(!$shortUrl)
@@ -57,7 +57,7 @@ class UrlPostAction extends AbstractFOSRestController
         }
 
         $url = 'https://'. $request->getHost().'/'. $newUrl->getShortUrl();
-        return $this->json($url);
+        return $this->json($newUrl);
     }
 
     private function normalizeUrl(string $url) : string
