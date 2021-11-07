@@ -28,7 +28,6 @@ class UrlPostAction extends AbstractFOSRestController
 
         if($existingUrl)
         {
-            $url = 'https://'. $request->getHost().'/'. $existingUrl->getShortUrl();
             return $this->json($existingUrl);
         }
 
@@ -56,7 +55,6 @@ class UrlPostAction extends AbstractFOSRestController
             $entityManager->flush();
         }
 
-        $url = 'https://'. $request->getHost().'/'. $newUrl->getShortUrl();
         return $this->json($newUrl);
     }
 

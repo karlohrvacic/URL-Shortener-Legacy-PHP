@@ -41,6 +41,7 @@ document.getElementById('url_form').addEventListener('submit', (event) => {
         .then(response => response.json())
         .then(data => {
             let currentUrlResponse = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/${data.shortUrl}`
+            console.log(data, currentUrlResponse)
             document.getElementById('main-message').innerHTML = 'New Generated URL is:';
             document.getElementById('link').value = currentUrlResponse;
             document.getElementById('answer').classList.remove('invisible');
