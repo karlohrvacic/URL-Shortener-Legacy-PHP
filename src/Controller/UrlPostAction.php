@@ -22,7 +22,11 @@ class UrlPostAction extends AbstractFOSRestController
         }
 
         $longUrl = $this->normalizeUrl($data['longUrl']);
-        $shortUrl = $data['shortUrl'];
+
+        $shortUrl = false;
+        if(isset($data['shortUrl'])) {
+            $shortUrl = $data['shortUrl'];
+        }
 
         $existingUrl = $this->getDoctrine()->getRepository(Url::class)->findOneBy(['longUrl' => $longUrl]);
 
