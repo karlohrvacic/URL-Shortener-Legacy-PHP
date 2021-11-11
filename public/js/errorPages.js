@@ -12,6 +12,6 @@ let timer = setInterval(() => {
         window.location.href = "/";
         clearInterval(timer)
     }
-    document.getElementById("number").innerHTML = "Redirecting to homepage in " + duration;
+    document.getElementById("number").innerHTML = duration;
     duration--;
     }, 1000);
