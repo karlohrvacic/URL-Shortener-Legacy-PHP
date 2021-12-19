@@ -51,8 +51,7 @@ class UrlPostAction extends AbstractFOSRestController
         else
         {
             $newUrl = new Url();
-            $newUrl->setLongUrl($longUrl);
-            $newUrl->setShortUrl($shortUrl);
+            $newUrl->setLongUrl($longUrl)->setShortUrl($shortUrl);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($newUrl);

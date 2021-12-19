@@ -40,12 +40,13 @@ class Url
         $this->setVisits(0);
     }
 
-    public function updateAccess(): static
+        public function updateAccess(): static
     {
         $this->lastAccessed = new DateTime('now');
         $this->visits++;
         return $this;
     }
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
