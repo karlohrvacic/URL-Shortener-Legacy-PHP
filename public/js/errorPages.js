@@ -1,4 +1,3 @@
-
 fetch('https://uselessfacts.jsph.pl/random.json?language=en')
     .then((data)=>{
     return data.json();
@@ -7,8 +6,13 @@ fetch('https://uselessfacts.jsph.pl/random.json?language=en')
 });
 
 let paused = false;
-
 let duration = 4
+
+function pause(){
+    paused = !paused;
+    console.log(paused)
+}
+
 let timer = setInterval(() => {
     if (!paused){
         if(duration <= 0){
@@ -19,8 +23,3 @@ let timer = setInterval(() => {
             duration--;
         }
     }, 1000);
-
-function pause(){
-    paused = !paused;
-    console.log(paused)
-}
