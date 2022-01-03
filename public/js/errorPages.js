@@ -6,11 +6,10 @@ fetch('https://uselessfacts.jsph.pl/random.json?language=en')
 });
 
 let paused = false;
-let duration = 4
+let duration = 4;
 
 function pause(){
     paused = !paused;
-    console.log(paused)
 }
 
 let timer = setInterval(() => {
