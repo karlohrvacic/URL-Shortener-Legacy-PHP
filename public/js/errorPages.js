@@ -6,6 +6,8 @@ fetch('https://uselessfacts.jsph.pl/random.json?language=en')
     document.getElementById('random-fact').innerText = data.text;
 });
 
+let paused = false;
+
 let duration = 4
 let timer = setInterval(() => {
     if(duration <= 0){
@@ -13,5 +15,11 @@ let timer = setInterval(() => {
         clearInterval(timer)
     }
     document.getElementById("number").innerHTML = duration;
-    duration--;
+    if (!paused){
+        duration--;
+    }
     }, 1000);
+
+function pause(){
+    paused = !paused;
+}
