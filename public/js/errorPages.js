@@ -22,4 +22,5 @@ let timer = setInterval(() => {
 
 function pause(){
     paused = !paused;
+    console.log(paused)
 }
