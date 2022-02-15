@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "166b9556f697202d79060654604d0bbe",
+    "content-hash": "38cf3933fc094cf1fbb4ba250b265a5d",
     "packages": [
         {
             "name": "api-platform/core",
@@ -5622,16 +5622,16 @@
         },
         {
             "name": "symfony/runtime",
-            "version": "v5.3.14",
+            "version": "v5.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/runtime.git",
-                "reference": "affdf1847e37a16dce3667988fc8494ac8bdf92c"
+                "reference": "354ce8493868594339cafe17ef67aba874c12158"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/runtime/zipball/affdf1847e37a16dce3667988fc8494ac8bdf92c",
-                "reference": "affdf1847e37a16dce3667988fc8494ac8bdf92c",
+                "url": "https://api.github.com/repos/symfony/runtime/zipball/354ce8493868594339cafe17ef67aba874c12158",
+                "reference": "354ce8493868594339cafe17ef67aba874c12158",
                 "shasum": ""
             },
             "require": {
@@ -5644,10 +5644,10 @@
             },
             "require-dev": {
                 "composer/composer": "^1.0.2|^2.0",
-                "symfony/console": "^4.4.30|^5.3.7",
-                "symfony/dotenv": "^5.1",
-                "symfony/http-foundation": "^4.4.30|^5.3.7",
-                "symfony/http-kernel": "^4.4.30|^5.3.7"
+                "symfony/console": "^4.4.30|^5.3.7|^6.0",
+                "symfony/dotenv": "^5.1|^6.0",
+                "symfony/http-foundation": "^4.4.30|^5.3.7|^6.0",
+                "symfony/http-kernel": "^4.4.30|^5.3.7|^6.0"
             },
             "type": "composer-plugin",
             "extra": {
@@ -5679,7 +5679,7 @@
             "description": "Enables decoupling PHP applications from global state",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/runtime/tree/v5.3.14"
+                "source": "https://github.com/symfony/runtime/tree/v5.4.3"
             },
             "funding": [
                 {
@@ -5695,7 +5695,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-02T09:59:06+00:00"
+            "time": "2022-01-26T17:32:52+00:00"
         },
         {
             "name": "symfony/security-bundle",
